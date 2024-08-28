@@ -1,4 +1,4 @@
-set(EXECUTABLE_NAME cpp_grpc_example)
+set(EXECUTABLE_NAME rest_spot_example)
 
 add_executable(${EXECUTABLE_NAME} main.cc)
 

@@ -1,4 +1,4 @@
-set(EXECUTABLE_NAME cpp_file_example)
+set(EXECUTABLE_NAME minimal_rest_spot_example)
 
 add_executable(${EXECUTABLE_NAME} main.cc)
 

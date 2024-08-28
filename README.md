@@ -82,18 +82,18 @@ Run the following commands in your terminal.
 1. Register and obtain the Presage Technologies Physiology API key from https://physiology.presagetech.com/ 
 2. Run the C++ web example (substitute `<YOUR_API_KEY>` with your Physiology REST API key):
     ```bash
-    cpp_web_example/cpp_web_example --also_log_to_stderr \
+    rest_spot_example/rest_spot_example --also_log_to_stderr \
       --camera_device_index=0 --auto_lock=false --physiology_key=<YOUR_API_KEY_HERE>
     ```
 #### Command Line Interface
 To list and read about all available command line options for an example, pass `--help=main` to terminal command, e.g.:
 ```bash
-    cpp_web_example/cpp_web_example --help=main
+    rest_spot_example/rest_spot_example --help=main
 ```
 
 To read about a specific command line option, pass `--help=<OPTION_NAME>` to terminal command, e.g.:
 ```bash
-    cpp_web_example/cpp_web_example --help=use_gpu
+    rest_spot_example/rest_spot_example --help=use_gpu
 ```
 
 #### Keyboard Shortcuts
@@ -109,5 +109,16 @@ See documentation for the `--auto_loc` option by passing `--help=auto_loc` for m
 
 More examples, tutorials, and reference documentation are coming soon! 
 
-In the meantime, please consult the C++ Web Example and C++ File Example code.
-The C++ gRPC Example may become more useful in the future, when we provide access to our Physiology gRPC API.
+In the meantime, please consult the REST spot examples.
+The gRPC example may become more useful in the future, when we provide access to our Physiology gRPC API.
+The Image File Folder example shows how you can read images from a folder. However, the continuous API is not currently available to the public.
+
+The following code in the minimal REST spot example demonstrates how you can add your own callback to process / display the data:
+```C++
+container.OnMetricsOutput = [](const nlohmann::json& metrics) {
+    LOG(INFO) << "Got metrics from Physiology REST API: " << metrics;
+    return absl::OkStatus();
+};
+```
+
+For the actual format of `metrics`, please consult the [Output Format Guide](docs/output_format.md).

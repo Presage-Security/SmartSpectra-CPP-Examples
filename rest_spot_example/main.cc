@@ -8,7 +8,7 @@
 #include <physiology/interface/absl/flags/usage.h>
 #include <physiology/interface/glog/logging.h>
 #include <physiology/modules/configuration.h>
-#include <smartspectra//container/settings.h>
+#include <smartspectra/container/settings.h>
 #include <smartspectra/video_source/camera/camera.h>
 #include <smartspectra/container/foreground_container.h>
 

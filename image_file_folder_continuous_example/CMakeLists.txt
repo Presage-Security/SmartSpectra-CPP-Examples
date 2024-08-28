@@ -1,4 +1,4 @@
-set(EXECUTABLE_NAME cpp_web_example)
+set(EXECUTABLE_NAME image_file_folder_continuous_example)
 
 add_executable(${EXECUTABLE_NAME} main.cc)
 

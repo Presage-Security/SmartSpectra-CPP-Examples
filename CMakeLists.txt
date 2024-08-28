@@ -12,8 +12,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(SmartSpectra REQUIRED)
 
 # === Subdirectories ===
-add_subdirectory(cpp_file_example)
-add_subdirectory(cpp_grpc_example)
-add_subdirectory(cpp_web_example)
+add_subdirectory(image_file_folder_continuous_example)
+add_subdirectory(grpc_continuous_example)
+add_subdirectory(rest_spot_example)
+add_subdirectory(minimal_rest_spot_example)
 
 
