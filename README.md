@@ -33,7 +33,7 @@ Windows support is may be added in future versions depending on demand.
 ## Smart Spectra C++ SDK Setup Guide
 ### Debian / Ubuntu/ Linux Mint
 #### Installing Build Tools
-1. CMake 3.28 or newer is required. Follow the [directions from Kitware](https://apt.kitware.com/) (publishers of CMake) to get it set up if your cmake version is below the requirement (run `cmake --version` to check this).
+1. CMake 3.22.1 or newer is required. You can typically install cmake via `sudo apt install cmake`. If your system-default cmake is older (run `cmake --version` to check this), follow the [directions from Kitware](https://apt.kitware.com/) (publishers of CMake) to get it set up if your cmake version is below the requirement.
 2. Ninja 1.10 or newer is recommended. Run `sudo apt install ninja-build` to install it. If you choose not to do so, you can still use `make` to build. Ensure you have that installed (`sudo apt-install build-essential`).
 
 #### Setting up the Presage Personal Package Archive (PPA)

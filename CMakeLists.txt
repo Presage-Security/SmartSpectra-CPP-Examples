@@ -1,7 +1,7 @@
 set(PROJECT_NAME SmartSpectraExamples)
 
 # === Project basic configuration & Language Standards ===
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.22.1)
 project(${PROJECT_NAME} CXX)
 
 set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard to build with")
