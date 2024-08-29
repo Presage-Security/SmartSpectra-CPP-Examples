@@ -74,8 +74,10 @@ ordered.
     "amplitude":{"0":{ "value": 0.5}}, // amplitude of the upper breath trace at specific time points (in seconds)
     "baseline":{"0":{ "value": 0.5}}  
   },
+  // Phasic blood pressure, keyed by specific time points (in seconds) 
+  // NOTE: this is currently a crude approximation, our accurate model for blood pressure is not currently available to the public
   "pressure": {
-    "phasic":{"0":{ "value": 0.5}}, // phasic pressure, keyed by specific time points (in seconds) - not currently available to the public
+    "phasic":{"0":{ "value": 0.5}}, 
   },
   "face": {
     // face states are keyed by specific time points (in seconds) and are detected for each frame

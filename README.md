@@ -80,7 +80,7 @@ Run the following commands in your terminal.
        ```
 ### Running
 1. Register and obtain the Presage Technologies Physiology API key from https://physiology.presagetech.com/ 
-2. Run the C++ web example (substitute `<YOUR_API_KEY>` with your Physiology REST API key):
+2. Run the C++ rest example (substitute `<YOUR_API_KEY>` with your Physiology REST API key):
     ```bash
     rest_spot_example/rest_spot_example --also_log_to_stderr \
       --camera_device_index=0 --auto_lock=false --physiology_key=<YOUR_API_KEY_HERE>
