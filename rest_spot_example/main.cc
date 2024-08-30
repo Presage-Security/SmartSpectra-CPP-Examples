@@ -8,9 +8,10 @@
 #include <physiology/interface/absl/flags/usage.h>
 #include <physiology/interface/glog/logging.h>
 #include <physiology/modules/configuration.h>
-#include <smartspectra/container/settings.h>
-#include <smartspectra/video_source/camera/camera.h>
-#include <smartspectra/container/foreground_container.h>
+#include <smartspectra/container/settings.hpp>
+#include <smartspectra/video_source/camera/camera.hpp>
+#include <smartspectra/container/foreground_container.hpp>
+#include <smartspectra/formats/metrics.hpp>
 
 namespace pcam = presage::camera;
 namespace spectra = presage::smartspectra;
@@ -65,9 +66,10 @@ ABSL_FLAG(bool, scale_input, true,
 ABSL_FLAG(bool, enable_phasic_bp, false, "If true, enable the phasic blood pressure computation.");
 ABSL_FLAG(bool, print_graph_contents, false, "If true, print the graph contents.");
 ABSL_FLAG(std::string,
-          output_path,
+          output_directory,
           "out",
-          "Path where to save preprocessed analysis data as JSON. If it does not exist, the app will attempt to make one.");
+          "Directory where to save preprocessed analysis data as JSON. "
+          "If it does not exist, the app will attempt to make one.");
 ABSL_FLAG(int, verbosity, 1, "Verbosity level -- raise to print more.");
 ABSL_FLAG(std::string, physiology_key, "",
           "API key to use for the Physiology online service. "
@@ -101,15 +103,27 @@ absl::Status RunRestSpotPreprocessing(
     settings::Settings<settings::OperationMode::Spot, settings::IntegrationMode::JsonRestApi>& settings
 ) {
     spectra::container::SpotRestForegroundContainer<TDeviceType> container(settings);
+    container.OnMetricsOutput = [](const nlohmann::json& api_json_metrics) {
+        auto metrics_or_status = spectra::formats::MetricsFromRestApiJson(api_json_metrics);
+        if (!metrics_or_status.ok()) {
+            return metrics_or_status.status();
+        }
+        spectra::formats::Metrics metrics = metrics_or_status.value();
+        nlohmann::json metrics_nice_json{metrics};
+        LOG(INFO) << "Got metrics from Physiology REST API: " << metrics_nice_json.dump(2);
+        return absl::OkStatus();
+    };
     MP_RETURN_IF_ERROR(container.Initialize());
-    return container.Run();
+    MP_RETURN_IF_ERROR(container.Run());
+
+    return absl::OkStatus();
 }
 
 int main(int argc, char** argv) {
     google::InitGoogleLogging(argv[0]);
 
     absl::SetProgramUsageMessage(
-        "Run Presage Physiology Preprocessing C++ Web Example on either a video file or video input from camera.\n"
+        "Run Presage Physiology Preprocessing C++ Rest Spot Example on either a video file or video input from camera.\n"
         "The application will use Presage Web API to retrieve metrics upon successful preprocessing of \n"
         "the input video if a valid Physiology Web API key is provided via the --api_key argument."
     );
@@ -143,13 +157,15 @@ int main(int argc, char** argv) {
         /*binary_graph=*/true,
         absl::GetFlag(FLAGS_enable_phasic_bp),
         absl::GetFlag(FLAGS_print_graph_contents),
-        absl::GetFlag(FLAGS_output_path),
+
         absl::GetFlag(FLAGS_verbosity),
         settings::SpotSettings {
             absl::GetFlag(FLAGS_spot_duration)
         },
         settings::JsonRestApiSettings{
-            absl::GetFlag(FLAGS_physiology_key)
+            absl::GetFlag(FLAGS_physiology_key),
+            absl::GetFlag(FLAGS_output_directory),
+            /*save_to_disk=*/false,
         }
     };
 
