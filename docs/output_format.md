@@ -30,7 +30,8 @@ ordered.
       "0.066":{ "value": 0.59} 
       // since typical video framerate is 30 fps, expect a much longer array than "hr", spanning the whole measurement
     },
-    "hr_strict":{ // aggregate average heart rate (usually, a single value) 
+    "hr_strict":  { // aggregate average heart rate (usually, a single value)
+      // NOTE: will be an empty JSON object IFF signal-to-noise ratio is too low to compute this value
       "28":{ "confidence": [ 32.4054 ], "value": 60.5}  
     },
     "hrv":{} // heart rate variability: not yet available to the public
@@ -65,6 +66,10 @@ ordered.
       "0.033":{ "value": 0.56},
       "0.066":{ "value": 0.59},
       // values for each processed frame, not second, spanning the whole measurement
+    },
+    "rr_strict":  { // aggregate average breath rate (usually, a single value)
+      // NOTE: will be an empty JSON object IFF signal-to-noise ratio is too low to compute this value
+      "28":{ "confidence": [ 32.4054 ], "value": 60.5}
     },
     "rrl":{"0":{ "value": 0.5}}, //respiratory line length
     "apnea":{"0":{ "value": false}},  // apnea detected or not, keyed by specific time points (in seconds)
