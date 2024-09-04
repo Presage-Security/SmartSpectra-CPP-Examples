@@ -1,4 +1,4 @@
-#include <smartspectra/container/foreground_container.h>
+#include <smartspectra/container/foreground_container.hpp>
 #include <physiology/interface/glog/logging.h>
 #include <physiology/interface/nlohmann/json.hpp>
 namespace spectra = presage::smartspectra;

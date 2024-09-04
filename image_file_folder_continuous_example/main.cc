@@ -16,9 +16,9 @@
 #include <physiology/interface/glog/logging.h>
 #include <physiology/modules/messages/status.pb.h>
 #include <physiology/modules/filesystem_absl.h>
-#include <smartspectra/container/settings.h>
-#include <smartspectra/video_source/camera/camera.h>
-#include <smartspectra/container/foreground_container.h>
+#include <smartspectra/container/settings.hpp>
+#include <smartspectra/video_source/camera/camera.hpp>
+#include <smartspectra/container/foreground_container.hpp>
 
 
 namespace pcam = presage::camera;
@@ -98,9 +98,10 @@ ABSL_FLAG(bool, scale_input, true,
 ABSL_FLAG(bool, enable_phasic_bp, false, "If true, enable the phasic blood pressure computation.");
 ABSL_FLAG(bool, print_graph_contents, false, "If true, print the graph contents.");
 ABSL_FLAG(std::string,
-          output_path,
+          output_directory,
           "out",
-          "Path where to save preprocessed analysis data as JSON. If it does not exist, the app will attempt to make one.");
+          "Directory where to save preprocessed analysis data as JSON. "
+          "If it does not exist, the app will attempt to make one.");
 ABSL_FLAG(int, verbosity, 1, "Verbosity level -- raise to print more.");
 ABSL_FLAG(double, buffer_duration, 0.5,
           "Duration of preprocessing buffer in seconds. Recommended values currently are between 0.2 and 1.0. "
@@ -207,12 +208,13 @@ int main(int argc, char** argv) {
         /*binary_graph=*/true,
         absl::GetFlag(FLAGS_enable_phasic_bp),
         absl::GetFlag(FLAGS_print_graph_contents),
-        absl::GetFlag(FLAGS_output_path),
         absl::GetFlag(FLAGS_verbosity),
         settings::ContinuousSettings{
             absl::GetFlag(FLAGS_buffer_duration)
         },
-        settings::JsonFileOnDiskSettings{}
+        settings::JsonFileOnDiskSettings {
+            absl::GetFlag(FLAGS_output_directory),
+        }
     };
 
     if (settings.headless && settings.video_source.input_video_path.empty() &&

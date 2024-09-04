@@ -7,9 +7,9 @@
 #include <physiology/interface/absl/flags/parse.h>
 #include <physiology/interface/absl/flags/usage.h>
 #include <physiology/interface/glog/logging.h>
-#include <smartspectra/container/settings.h>
-#include <smartspectra/video_source/camera/camera.h>
-#include <smartspectra/container/foreground_container.h>
+#include <smartspectra/container/settings.hpp>
+#include <smartspectra/video_source/camera/camera.hpp>
+#include <smartspectra/container/foreground_container.hpp>
 
 
 namespace pcam = presage::camera;
@@ -143,7 +143,6 @@ int main(int argc, char** argv) {
         /*binary_graph=*/true,
         absl::GetFlag(FLAGS_enable_phasic_bp),
         absl::GetFlag(FLAGS_print_graph_contents),
-        "out",
         absl::GetFlag(FLAGS_verbosity),
         settings::ContinuousSettings{
             absl::GetFlag(FLAGS_buffer_duration)

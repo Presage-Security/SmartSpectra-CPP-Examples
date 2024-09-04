@@ -121,4 +121,19 @@ container.OnMetricsOutput = [](const nlohmann::json& metrics) {
 };
 ```
 
-For the actual format of `metrics`, please consult the [Output Format Guide](docs/output_format.md).
+For the actual format of `metrics` (raw JSON object), please consult the [Output Format Guide](docs/output_format.md).
+
+The following code in the full REST spot example demonstrates how to convert the json to an easier-to-consume Metrics struct:
+```C++
+container.OnMetricsOutput = [](const nlohmann::json& api_json_metrics) {
+    auto metrics_or_status = spectra::formats::MetricsFromRestApiJson(api_json_metrics);
+    if (!metrics_or_status.ok()) {
+        return metrics_or_status.status();
+    }
+    spectra::formats::Metrics metrics = metrics_or_status.value();
+    nlohmann::json metrics_nice_json{metrics};
+    LOG(INFO) << "Got metrics from Physiology REST API: " << metrics_nice_json.dump(2);
+    return absl::OkStatus();
+};
+```
+For the actual format of `metrics` (formatted Struct), please consult the [Output Format Guide](docs/output_format.md).

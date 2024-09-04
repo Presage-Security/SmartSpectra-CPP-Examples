@@ -1,5 +1,7 @@
-### Data Format
+## Data Format
 
+
+### Raw REST API Output Format 
 The sample metrics JSON object has the following format (annotated using JSON5 comments). 
 The sample was abridged and simplified for clarity (read comments). Please note that the keys are not guaranteed to be
 ordered.
@@ -91,3 +93,28 @@ ordered.
   }
 }
 ```
+### Metrics struct
+
+A `presage::smartspectra::formats::Metrics` struct instance `metrics` has the following layout:
+
+| Field                                       | Description                                                              |
+|---------------------------------------------|--------------------------------------------------------------------------|
+| `metrics.pulse`                             | Contains everything related to pulse                                     |
+| `metrics.pulse.values`                      | Pulse rate measurements with times and confidences (ordered)             |
+| `metrics.pulse.trace`                       | Pulse waveform, or pleth (ordered points)                                |
+| `metrics.pulse.strict`                      | The strict pulse rate (high confidence average over spot duration)       |
+| `metrics.pulse.snr_sufficient`              | Whether signal-to-noise ratio was sufficient to compute strict pulse     |
+| `metrics.breathing`                         | Contains everything related to breathing                                 |
+| `metrics.breathing.values`                  | Breathing rate measurements with times and confidences (ordered)         |
+| `metrics.breathing.upper_trace`             | Breathing movement waveform from chest (ordered points)                  |
+| `metrics.breathing.upper_trace`             | Breathing movement waveform from abdomen (ordered points)                |
+| `metrics.breathing.strict`                  | The strict breathing rate (high confidence average over spot duration)   |
+| `metrics.breathing.snr_sufficient`          | Whether signal-to-noise ratio was sufficient to compute strict breathing |
+| `metrics.breathing.amplitude`               | The amplitudes of breathing motion (ordered, with times)                 |
+| `metrics.breathing.apnea`                   | Apnea detection results (ordered, with times)                            |
+| `metrics.breathing.respiratory_line_length` | Respiratory line lengths (ordered, with times)                           |
+| `metrics.breathing.inhale_exhale_ratio`     | Inhale-exhale ratios (ordered, with times)                               |
+| `metrics.blooc_pressure`                    | Contains everything related to blood pressure                            |
+| `metrics.blood_pressure.phasic`             | Phasic blood pressure measurements with times and confidences (ordered)  |
+| `metrics.upload timestamp`                  | Date & time when the inputs were uploaded                                |
+| `metrics.version`                           | Version of the Physiology REST API used                                  |
