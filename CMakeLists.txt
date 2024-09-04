@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # === Dependencies ===
-find_package(SmartSpectra REQUIRED)
+find_package(SmartSpectra 0.4.2 REQUIRED)
 
 # === Subdirectories ===
 add_subdirectory(image_file_folder_continuous_example)
