@@ -99,8 +99,8 @@ A `presage::smartspectra::formats::Metrics` struct uses the following types for 
 
 | Type                                       | Field(Type) List                                      | 
 |--------------------------------------------|-------------------------------------------------------|
-| Measurement<TValue>                        | value(`TValue`), time (`float`)                       |
-| MeasurementWithConfidence<TValue>          | value(`TValue`), time (`float`), confidence (`float`) |
+| Measurement\<TValue>                       | value(`TValue`), time (`float`)                       |
+| MeasurementWithConfidence\<TValue>         | value(`TValue`), time (`float`), confidence (`float`) |
 
 
 A `presage::smartspectra::formats::Metrics` struct instance `metrics` has the following layout:
@@ -108,21 +108,21 @@ A `presage::smartspectra::formats::Metrics` struct instance `metrics` has the fo
 | Field                                       | Description                                                              | Type                               |
 |---------------------------------------------|--------------------------------------------------------------------------|------------------------------------|
 | `metrics.pulse`                             | Contains everything related to pulse                                     | Pulse                              |
-| `metrics.pulse.values`                      | Pulse rates                                                              | MeasurementWithConfidence<float>>  |
-| `metrics.pulse.trace`                       | Pulse waveform, or pleth (ordered points)                                | Measurement<float>>                |
+| `metrics.pulse.values`                      | Pulse rates                                                              | MeasurementWithConfidence\<float>  |
+| `metrics.pulse.trace`                       | Pulse waveform, or pleth (ordered points)                                | Measurement\<float>                |
 | `metrics.pulse.strict`                      | The strict pulse rate (high confidence average over spot duration)       | float                              |
 | `metrics.pulse.snr_sufficient`              | Whether signal-to-noise ratio was sufficient to compute strict pulse     | bool                               |
 | `metrics.breathing`                         | Contains everything related to breathing                                 | Breathing                          |
-| `metrics.breathing.values`                  | (Ordered) breathing rates                                                | MeasurementWithConfidence<float>   |
-| `metrics.breathing.upper_trace`             | Breathing movement waveform from chest (ordered points)                  | Measurement<float>                 |
-| `metrics.breathing.upper_trace`             | Breathing movement waveform from abdomen (ordered points)                | Measurement<float>                 |
+| `metrics.breathing.values`                  | (Ordered) breathing rates                                                | MeasurementWithConfidence\<float>  |
+| `metrics.breathing.upper_trace`             | Breathing movement waveform from chest (ordered points)                  | Measurement\<float>                |
+| `metrics.breathing.upper_trace`             | Breathing movement waveform from abdomen (ordered points)                | Measurement\<float>                |
 | `metrics.breathing.strict`                  | The strict breathing rate (high confidence average over spot duration)   | float                              |
 | `metrics.breathing.snr_sufficient`          | Whether signal-to-noise ratio was sufficient to compute strict breathing | bool                               |
-| `metrics.breathing.amplitude`               | Amplitudes of breathing motion                                           | Measurement<float>                 |
-| `metrics.breathing.apnea`                   | Apnea detection results                                                  | Measurement<bool>                  |
-| `metrics.breathing.respiratory_line_length` | Respiratory line lengths                                                 | Measurement<float>                 |
-| `metrics.breathing.inhale_exhale_ratio`     | Inhale-exhale ratios                                                     | Measurement<float>                 |
+| `metrics.breathing.amplitude`               | Amplitudes of breathing motion                                           | Measurement\<float>                |
+| `metrics.breathing.apnea`                   | Apnea detection results                                                  | Measurement\<bool>                 |
+| `metrics.breathing.respiratory_line_length` | Respiratory line lengths                                                 | Measurement\<float>                |
+| `metrics.breathing.inhale_exhale_ratio`     | Inhale-exhale ratios                                                     | Measurement\<float>                |
 | `metrics.blood_pressure`                    | Contains everything related to blood pressure                            | BloodPressure                      |
-| `metrics.blood_pressure.phasic`             | Phasic blood pressure measurements                                       | MeasurementWithConfidence<float>   |
+| `metrics.blood_pressure.phasic`             | Phasic blood pressure measurements                                       | MeasurementWithConfidence\<float>  |
 | `metrics.upload timestamp`                  | Date & time when the inputs were uploaded                                | std::string                        |
 | `metrics.version`                           | Version of the Physiology REST API used                                  | std::string                        |
